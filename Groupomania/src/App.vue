@@ -2,11 +2,13 @@
       <v-main>
         <Header />
         <Footer />
-        <router-view />
       </v-main>
 </template>
 
 <script>
+const API_URL = process.env.API_URL;
+console.log(API_URL);
+
 import Header from './components/Header'
 import Footer from './components/Footer'
 
