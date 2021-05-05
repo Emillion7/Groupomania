@@ -8,11 +8,10 @@ export class UserRepository extends Repository<User> {
   public async createUser(
     createUserDto: CreateUserDTO,
   ): Promise<User> {
-    const { first_name, last_name, email, password, image_url, description } = createUserDto;
+    const { name, email, password, image_url, description } = createUserDto;
 
     const user = new User();
-    user.first_name = first_name;
-    user.last_name = last_name;
+    user.name = name;
     user.email = email;
     user.password = password;
     user.image_url = image_url;
@@ -27,10 +26,10 @@ export class UserRepository extends Repository<User> {
     createUserDto: CreateUserDTO,
     editedUser: User,
   ): Promise<User> {
-    const { first_name, last_name, email, password, image_url, description } = createUserDto;
+    const { name, email, password, image_url, description } = createUserDto;
 
-    editedUser.first_name = first_name;
-    editedUser.last_name = last_name;
+
+    editedUser.name = name;
     editedUser.email = email;
     editedUser.password = password;
     editedUser.image_url = image_url;
