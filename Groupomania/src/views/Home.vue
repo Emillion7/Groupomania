@@ -8,11 +8,11 @@
                 <v-toolbar-title>Sign Up</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
-                <v-form>
-                  <v-icon>mdi-account</v-icon><v-text-field  name="name" label="Name" type="text"></v-text-field>
-                  <v-icon>mdi-email</v-icon><v-text-field id="email" name="email" label="Email Address" type="email"></v-text-field>
-                  <v-icon>mdi-lock</v-icon><v-text-field id="password" name="password" label="Password" type="password"></v-text-field>
-              <v-card-actions @submit.prevent="signup">
+                <v-form @submit="handleSubmit">
+                  <v-icon>mdi-account</v-icon><v-text-field v-model="name" name="name" label="Name" type="text"></v-text-field>
+                  <v-icon>mdi-email</v-icon><v-text-field v-model="email" id="email" name="email" label="Email Address" type="email"></v-text-field>
+                  <v-icon>mdi-lock</v-icon><v-text-field v-model="password"  id="password" name="password" label="Password" type="password"></v-text-field>
+              <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn dark color="indigo darken-3" to="/login">Login</v-btn>
                 <v-btn type="submit" color="success">Sign Up</v-btn>
@@ -36,14 +36,18 @@
       }
     },
     methods: {
-      signup () {
+      handleSubmit(e) {
+        e.preventDefault()
         this.$store
-          .dispatch('signup', {
+          .dispatch('handleSubmit', {
             name: this.name,
             email: this.email,
             password: this.password
+        })
+          .then( () => {
+            this.$router.push({ name: 'Dashboard'})
           })
-        }
       }
+    }
   }
 </script>
