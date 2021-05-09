@@ -8,7 +8,7 @@
                 <v-toolbar-title>Sign Up</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
-                <v-form @submit="handleSubmit">
+                <v-form @submit.prevent="handleSubmit">
                   <v-icon>mdi-account</v-icon><v-text-field v-model="name" name="name" label="Name" type="text"></v-text-field>
                   <v-icon>mdi-email</v-icon><v-text-field v-model="email" id="email" name="email" label="Email Address" type="email"></v-text-field>
                   <v-icon>mdi-lock</v-icon><v-text-field v-model="password"  id="password" name="password" label="Password" type="password"></v-text-field>
@@ -36,8 +36,7 @@
       }
     },
     methods: {
-      handleSubmit(e) {
-        e.preventDefault()
+      handleSubmit() {
         this.$store
           .dispatch('handleSubmit', {
             name: this.name,
