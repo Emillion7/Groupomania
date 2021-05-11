@@ -9,7 +9,7 @@ export class User extends BaseEntity {
   @Column({ type:"varchar", length: 50, nullable: true })
   name: string;
 
-  @Column({unique:true, type:"varchar", length: 100 })
+  @Column({ type:"varchar", length: 100 })
   email: string;
 
   @Column({ type:"varchar", length: 50 })
