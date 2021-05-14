@@ -24,7 +24,15 @@ export default new Vuex.Store({
             .then(({ data }) => {
               console.log('user data is', data)
               commit('SET_USER_DATA', data)
-            })
-         }
-       }
-})
+          })
+        },
+        handleLogin ({ commit }, credentials) {
+          return axios
+            .post('//localhost:3000/user/login', credentials)
+            .then(({ data }) => {
+              console.log('user data is', data)
+              commit('SET_USER_DATA', data)
+          })
+        }
+      }
+    })
