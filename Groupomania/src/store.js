@@ -20,7 +20,7 @@ export default new Vuex.Store({
     actions: {
         handleSubmit ({ commit }, credentials) {
           return axios
-            .post('//localhost:3000/user/create', credentials)
+            .post('//localhost:3000/users', credentials)
             .then(({ data }) => {
               console.log('user data is', data)
               commit('SET_USER_DATA', data)

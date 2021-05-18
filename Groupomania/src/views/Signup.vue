@@ -33,7 +33,6 @@
     data() {
       return {
         username:'',
-        name:'',
         email:'',
         password:''
       }
@@ -43,7 +42,6 @@
         this.$store
           .dispatch('handleSubmit', {
             username: this.username,
-            name: this.name,
             email: this.email,
             password: this.password
           })
