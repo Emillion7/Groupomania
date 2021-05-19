@@ -16,6 +16,9 @@
                     <v-spacer></v-spacer>
                     <v-btn type="submit" color="success">Sign Up</v-btn>
                   </v-card-actions>
+                  <ul>
+                    <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+                  </ul>
                   <p> Already have an account? 
                   <router-link to="/login"> Login! </router-link>
                   </p>
@@ -34,7 +37,8 @@
       return {
         username:'',
         email:'',
-        password:''
+        password:'',
+        errors: null
       }
     },
     methods: {
@@ -47,6 +51,9 @@
           })
           .then( () => {
             this.$router.push({ name: 'Login'})
+          })
+          .catch(err => {
+            this.errors = err.response.data.errors
           })
         }
       }
