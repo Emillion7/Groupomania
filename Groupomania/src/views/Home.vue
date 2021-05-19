@@ -1,7 +1,7 @@
 <template>
  <div class="home">
    <h1>Welcome to Groupomania!</h1>
-   <div>
+   <div v-if="!loggedIn">
      <p>
        To use our app you'll need to
        <router-link to="/login">
@@ -14,6 +14,16 @@
    </div>
  </div>
 </template>
+
+<script>
+import { authComputed } from '../vuex/helpers'
+export default {
+    name: 'Home',
+    computed: {
+      ...authComputed
+    }
+  }
+</script>
 
 <style scoped>
 .home {

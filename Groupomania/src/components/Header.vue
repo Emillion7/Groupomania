@@ -15,7 +15,8 @@
         <img src="../assets/icon-left-font-monochrome-white.png" height="150" width="180" alt="logo" class="logo-1">
         
         <v-spacer></v-spacer>
-  
+
+      <div v-if="!loggedIn">  
         <v-btn icon to="/Signup">
           <v-icon>mdi-account-plus-outline</v-icon>
         </v-btn>
@@ -23,10 +24,20 @@
         <v-btn icon to="/Login">
           <v-icon>mdi-login</v-icon>
         </v-btn>
-  
-        <v-btn icon>
+      </div>
+
+      <div v-else class="logoutButton" @click="logout">
+        <v-btn icon to="/Home">
+          <v-icon>mdi-logout</v-icon>
+        </v-btn>
+      </div>
+      
+      <div>
+        <v-btn icon v-if="loggedIn" to="/dashboard">
           <v-icon>mdi-dots-vertical</v-icon>
         </v-btn>
+      </div>
+
 
       </v-toolbar>
       <v-main>
@@ -38,14 +49,20 @@
 </template>
 
 <script>
-
-
+import { authComputed } from '../vuex/helpers'
 export default {
     name: 'Header',
-
-    components: {
-        
+    
+    computed: {
+      ...authComputed
+    },
+    
+    methods: {
+      logout () {
+        this.$store.dispatch('logout')
+      }
     }
+
   }
 </script>
 

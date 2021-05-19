@@ -5,9 +5,9 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-      user: null
-    },
+  state: {
+    user: null
+  },
     mutations: {
       SET_USER_DATA(state, userData){
         state.user = userData
@@ -15,12 +15,16 @@ export default new Vuex.Store({
         axios.defaults.headers.common['Authorization'] = `Bearer ${
           userData.token
         }`
+      },
+      CLEAR_USER_DATA () {
+        localStorage.removeItem('user')
+        location.reload()
       }
     },
     actions: {
         handleSubmit ({ commit }, credentials) {
           return axios
-            .post('//localhost:3000/users', credentials)
+            .post('//localhost:3000/api/auth/signup', credentials)
             .then(({ data }) => {
               console.log('user data is', data)
               commit('SET_USER_DATA', data)
@@ -28,11 +32,20 @@ export default new Vuex.Store({
         },
         handleLogin ({ commit }, credentials) {
           return axios
-            .post('//localhost:3000/user/login', credentials)
+            .post('//localhost:3000/api/auth/signin', credentials)
             .then(({ data }) => {
               console.log('user data is', data)
               commit('SET_USER_DATA', data)
           })
+        },
+        logout ({ commit }) {
+          commit('CLEAR_USER_DATA')
+        }
+      },
+      getters: {
+        loggedIn (state) {
+          return !!state.user
         }
       }
     })
+    
