@@ -24,7 +24,7 @@ export default new Vuex.Store({
     actions: {
         handleSubmit ({ commit }, credentials) {
           return axios
-            .post('//localhost:3000/api/auth/signup', credentials)
+            .post('http://localhost:5000/auth/register', credentials)
             .then(({ data }) => {
               console.log('user data is', data)
               commit('SET_USER_DATA', data)
@@ -32,7 +32,7 @@ export default new Vuex.Store({
         },
         handleLogin ({ commit }, credentials) {
           return axios
-            .post('//localhost:3000/api/auth/signin', credentials)
+            .post('http://localhost:5000/auth/login', credentials)
             .then(({ data }) => {
               console.log('user data is', data)
               commit('SET_USER_DATA', data)
