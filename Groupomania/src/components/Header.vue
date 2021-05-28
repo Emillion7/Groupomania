@@ -6,6 +6,13 @@
         prominent
         src='https://wallpaperaccess.com/full/560012.jpg'
       >
+
+        <div>
+          <v-btn icon v-if="loggedIn" @click="drawer = !drawer">
+            <v-icon>mdi-reorder-horizontal</v-icon>
+          </v-btn>
+        </div>
+      
         <v-btn icon to="/">
           <v-icon>mdi-home</v-icon>
         </v-btn> 
@@ -31,17 +38,23 @@
           <v-icon>mdi-logout</v-icon>
         </v-btn>
       </div>
-      
-      <div>
-        <v-btn icon v-if="loggedIn" to="/dashboard">
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-      </div>
+  
+    </v-toolbar>
 
+      <v-navigation-drawer v-model="drawer" app class="secondary">
+        <v-list>
+          <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
+            <v-list-tile-action>
+              <v-icon class="white--text pl-4 pr-2 py-3">{{ link.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="white--text">{{ link.text }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
 
-      </v-toolbar>
       <v-main>
-        
         <router-view />
       </v-main>
     </div>
@@ -52,6 +65,17 @@
 import { authComputed } from '../vuex/helpers'
 export default {
     name: 'Header',
+
+    data() {
+      return {
+        drawer: false,
+        links: [
+          { icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/dashboard' },
+          { icon: 'mdi-post', text: 'My Posts', route: '/posts' },
+          { icon: 'mdi-account-details', text: 'Team', route: '/team' }
+        ]
+      }
+    },
     
     computed: {
       ...authComputed

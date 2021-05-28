@@ -1,3 +1,10 @@
 <template>
-<h1>Hello</h1>
+  <v-main>
+   
+  </v-main>
 </template>
+
+<script>
+
+
+</script>

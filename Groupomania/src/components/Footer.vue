@@ -3,7 +3,7 @@
     <v-footer
       dark
       padless
-      fixed
+      app
     >
       <v-card
         flat
