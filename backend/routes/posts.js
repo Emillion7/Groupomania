@@ -7,12 +7,10 @@ const Post = require('../controllers/posts');
 router.get("/", async (req, res) => {
     try {
       const posts = await new Post().getPosts();
-  
-      // res.json is used to return a response to the client
       res.json(posts);
-    } catch (e) {
+    } 
+    catch (e) {
       console.log(e);
-      // res.json is used to return a response to the client
       res.json([]);
     }
   });
