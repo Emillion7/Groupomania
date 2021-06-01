@@ -41,16 +41,21 @@
   
     </v-toolbar>
 
-      <v-navigation-drawer v-model="drawer" app class="secondary">
-        <v-list>
-          <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
-            <v-list-tile-action>
-              <v-icon class="white--text pl-4 pr-2 py-3">{{ link.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title class="white--text">{{ link.text }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+    <v-navigation-drawer 
+      dark
+      v-model="drawer"
+      app
+      src='https://wallpaperaccess.com/full/560012.jpg'
+      :width="180">
+        <v-list class="pt-10">
+          <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
+            <v-list-item-action>
+              <v-icon>{{ link.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ link.text }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
 
@@ -62,7 +67,7 @@
 </template>
 
 <script>
-import { authComputed } from '../vuex/helpers'
+import { authComputed }  from '../vuex/helpers'
 export default {
     name: 'Header',
 
@@ -70,9 +75,9 @@ export default {
       return {
         drawer: false,
         links: [
-          { icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/dashboard' },
-          { icon: 'mdi-post', text: 'My Posts', route: '/posts' },
-          { icon: 'mdi-account-details', text: 'Team', route: '/team' }
+          { icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/Dashboard' },
+          { icon: 'mdi-post', text: 'Feed', route: '/Feed' },
+          { icon: 'mdi-account-details', text: 'Team', route: '/Team' }
         ]
       }
     },
@@ -86,7 +91,6 @@ export default {
         this.$store.dispatch('logout')
       }
     }
-
   }
 </script>
 
@@ -96,5 +100,4 @@ export default {
     margin-right: 20px;
     margin-top: 10px
 }
-
 </style>
