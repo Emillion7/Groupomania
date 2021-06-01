@@ -4,9 +4,18 @@ const Post = require('../controllers/posts');
 
 
 //Get all posts.
-router.get('/', async (req,res) => {
-    let posts = await new Post().getPosts();
-});
+router.get("/", async (req, res) => {
+    try {
+      const posts = await new Post().getPosts();
+  
+      // res.json is used to return a response to the client
+      res.json(posts);
+    } catch (e) {
+      console.log(e);
+      // res.json is used to return a response to the client
+      res.json([]);
+    }
+  });
 
 //Create a post.
 router.post('/post', async (req,res) => {
