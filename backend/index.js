@@ -1,24 +1,12 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
+require("dotenv/config");
 
-//middleware
+const { app } = require("./src/app");
+const { sequelize } = require("./src/sequelize");
 
-app.use(express.json());
-app.use(cors());
+const port = Number.parseInt(process.env.PORT || "5000", 10);
 
-//ROUTES
-
-app.get("/", (req, res) =>{
-    res.send("Groupomania App!");
+sequelize.sync().then(() => {
+  app.listen(port, () => {
+    console.log(`🚀 Server ready at: http://localhost:${port}`);
+  });
 });
-
-//register and login routes
-
-app.use("/auth", require("./routes/jwtAuth"));
-app.use("/dashboard", require("./routes/dashboard"));
-app.use("/posts", require('./routes/posts'));
-
-app.listen(5000, () => {
-    console.log("server is running on port 5000");
-})
