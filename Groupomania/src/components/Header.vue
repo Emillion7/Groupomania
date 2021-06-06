@@ -43,6 +43,7 @@
 
     <v-navigation-drawer 
       dark
+      v-if="loggedIn"
       v-model="drawer"
       app
       src='https://wallpaperaccess.com/full/560012.jpg'

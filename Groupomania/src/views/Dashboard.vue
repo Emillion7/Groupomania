@@ -2,27 +2,22 @@
   <v-main>
     <h1 class="subheading grey--text pl-3">Dashboard</h1>
 
-    <v-container class="my-5">
+    <v-container  class="my-5">
       
-     <v-card class="pa-1">
-       <v-layout wrap>
-         <v-flex xs12 md6>
-           <div class="body-1 grey--text">Post title</div>
-           <div>My first post</div>
+     <v-card width="250" class="pa-1">
+       <v-layout wrap column>
+         <v-flex xs12 sm4>
+           <div class="body-1 grey--text">Name:</div>
+           <div>{{ name }}</div>
          </v-flex>
-         <v-flex xs6 sm4 md2>
-           <div class="body-1 grey--text">Person</div>
-           <div>John</div>
+         <v-flex xs12 sm4>
+           <div class="body-1 grey--text">Username:</div>
+           <div>{{ username }}</div>
          </v-flex>
-         <v-flex xs6 sm4 md2>
-           <div class="body-1 grey--text">Date</div>
-           <div>1st May 2021</div>
+         <v-flex xs12 sm4>
+           <div class="body-1 grey--text">Email:</div>
+           <div>{{ email }}</div>
          </v-flex>
-         <v-flex xs2 sm4 md2>
-           <div class="body-1 grey--text">Status</div>
-           <div>Active</div>
-         </v-flex>
-
        </v-layout>
      </v-card>
 
@@ -31,6 +26,16 @@
 </template>
 
 <script>
-
-
+export default {
+    name: 'Dashboard',
+    data() {
+        return {
+            name: '',
+            username: '',
+            email: ''
+        }
+    },
+    methods: {
+    }
+}
 </script>

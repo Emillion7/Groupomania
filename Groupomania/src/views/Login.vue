@@ -9,8 +9,8 @@
               </v-toolbar>
               <v-card-text>
                 <v-form @submit.prevent="handleLogin">
-                  <v-icon>mdi-email</v-icon>
-                  <v-text-field v-model="email" id="email" name="email" label="Email Address" type="email"></v-text-field>
+                  <v-icon>mdi-account</v-icon>
+                  <v-text-field v-model="username" id="username" name="username" label="Username" type="text"></v-text-field>
                   <v-icon>mdi-lock</v-icon>
                   <v-text-field v-model="password" id="password" name="password" label="Password" type="password"></v-text-field>
                   <v-card-actions>
@@ -34,7 +34,7 @@
 export default {
   data() {
     return {
-      email:'',
+      username:'',
       password:'',
       error: null
     }
@@ -43,7 +43,7 @@ export default {
     handleLogin() {
       this.$store
       .dispatch('handleLogin', {
-        email: this.email,
+        username: this.username,
         password: this.password
       })
       .then ( () => {
