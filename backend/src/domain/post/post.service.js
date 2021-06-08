@@ -35,12 +35,12 @@ class PostService {
   /**
    * editPost
    * @param {Number} postId
-   * @param {{ title?: string; content?: string }} updateProductDto
+   * @param {{ title?: string; content?: string }} updatePostDto
    * @returns Post
    */
-  static editPost = async (postId, updateProductDto) => {
+  static editPost = async (postId, updatePostDto) => {
     const post = await PostService.getPost(postId);
-    return await PostService.postRepository.editPost(post, updateProductDto);
+    return await PostService.postRepository.editPost(post, updatePostDto);
   };
 
   /**
