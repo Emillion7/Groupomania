@@ -8,60 +8,71 @@ const {
 
 class UserController {
   static userService = UserService;
-  /**
-   * getUsers
-   * @param {import("express").Request} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static getUsers = withGetHandler(async () => {
-    return await UserController.userService.getUsers();
-  });
 
-  /**
-   * getUser
-   * @param {import("express").Request<{ userId: string }>} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static getUser = withGetHandler(async (req) => {
-    const userId = req.params.userId;
-    return await UserController.userService.getUser(userId);
-  });
+  static getUsers = withGetHandler(
+    /**
+     * getUsers
+     * @param {import("express").Request} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async () => {
+      return await UserController.userService.getUsers();
+    }
+  );
 
-  /**
-   * createUser
-   * @param {import("express").Request<unknown, { title: string; content?: string }>} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static createUser = withPostHandler(async (req) => {
-    const payload = req.body;
-    return await UserController.userService.createUser(payload);
-  });
+  static getUser = withGetHandler(
+    /**
+     * getUser
+     * @param {import("express").Request<{ userId: string }>} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async (req) => {
+      const { userId } = req.params;
+      return await UserController.userService.getUser(userId);
+    }
+  );
 
-  /**
-   * editUser
-   * @param {import("express").Request<{ userId: string }, { title?: string; content?: string; published?: boolean }>} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static editUser = withPatchHandler(async (req) => {
-    const userId = req.params.userId;
-    const payload = req.body;
-    return await UserController.userService.editUser(userId, payload);
-  });
+  static createUser = withPostHandler(
+    /**
+     * createUser
+     * @param {import("express").Request<unknown, { title: string; content?: string }>} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async (req) => {
+      const payload = req.body;
+      return await UserController.userService.createUser(payload);
+    }
+  );
 
-  /**
-   * deleteUser
-   * @param {import("express").Request<{ userId: string }>} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static deleteUser = withDeleteHandler(async (req) => {
-    const userId = req.params.userId;
-    return await UserController.userService.deleteUser(userId);
-  });
+  static editUser = withPatchHandler(
+    /**
+     * editUser
+     * @param {import("express").Request<{ userId: string }, { title?: string; content?: string; published?: boolean }>} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async (req) => {
+      const { userId } = req.params;
+      const payload = req.body;
+      return await UserController.userService.editUser(userId, payload);
+    }
+  );
+
+  static deleteUser = withDeleteHandler(
+    /**
+     * deleteUser
+     * @param {import("express").Request<{ userId: string }>} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async (req) => {
+      const { userId } = req.params;
+      return await UserController.userService.deleteUser(userId);
+    }
+  );
 }
 
 module.exports = { UserController };

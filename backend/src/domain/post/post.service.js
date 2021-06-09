@@ -12,7 +12,7 @@ class PostService {
 
   /**
    * getPost
-   * @param {Number} postId
+   * @param {string} postId
    * @returns Post
    */
   static getPost = async (postId) => {
@@ -25,7 +25,7 @@ class PostService {
 
   /**
    * createPost
-   * @param {{ title: string; content?: string }} createPostDto
+   * @param {{ title: string; description?: string; imageURL?: string }} createPostDto
    * @returns Post
    */
   static createPost = async (createPostDto) => {
@@ -34,8 +34,8 @@ class PostService {
 
   /**
    * editPost
-   * @param {Number} postId
-   * @param {{ title?: string; content?: string }} updatePostDto
+   * @param {string} postId
+   * @param {{ title?: string; description?: string; imageURL?: string }} updatePostDto
    * @returns Post
    */
   static editPost = async (postId, updatePostDto) => {
@@ -45,7 +45,7 @@ class PostService {
 
   /**
    * deletePost
-   * @param {Number} postId
+   * @param {string} postId
    */
   static deletePost = async (postId) => {
     const post = await PostService.getPost(postId);

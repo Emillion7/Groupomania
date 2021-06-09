@@ -19,8 +19,6 @@ const withRequestHandlerFactory = (statusCode = 200) => {
 
         res.status(statusCode).json(createSuccessResponse(data));
       } catch (error) {
-        console.log(setCustomErrorStatus());
-
         res.status(setCustomErrorStatus()).json(createErrorResponse(error));
       }
     };

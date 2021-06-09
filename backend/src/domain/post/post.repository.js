@@ -12,7 +12,7 @@ class PostRepository {
 
   /**
    * getPost
-   * @param {Number} postId
+   * @param {string} postId
    * @returns Post
    */
   static getPost = async (postId) => {

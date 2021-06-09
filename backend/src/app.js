@@ -8,5 +8,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/v1", apiV1Router);
+app.use("/uploads", express.static("uploads"));
 
 module.exports = { app };

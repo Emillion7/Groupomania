@@ -8,6 +8,7 @@ const setupAssociations = (sequelize) => {
   Post.belongsTo(User, {
     foreignKey: "authorId",
     as: "author",
+    onDelete: "CASCADE",
   });
   User.hasMany(Post, {
     foreignKey: "authorId",

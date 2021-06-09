@@ -1,4 +1,5 @@
 const { DataTypes, UUIDV4 } = require("sequelize");
+const validator = require("validator").default;
 const { encryptPassword } = require("./utils/encrypt-password");
 
 /**
@@ -24,6 +25,13 @@ const setupModels = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          isEmail: (email) => {
+            if (!validator.isEmail(email)) {
+              throw new Error("Email needs to be a valid email!");
+            }
+          },
+        },
       },
       username: {
         type: DataTypes.STRING,
@@ -33,6 +41,16 @@ const setupModels = (sequelize) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+          isStrongPassword: (password) => {
+            if (!validator.isStrongPassword(String(password))) {
+              throw new Error(
+                "Password needs to be at least 8 characters long, at least 1 lowercase, 1 uppercase, 1 number and 1 symbol!"
+              );
+            }
+          },
+        },
       },
     },
     {
@@ -74,11 +92,9 @@ const setupModels = (sequelize) => {
     },
     description: {
       type: DataTypes.STRING,
-      defaultValue: null,
     },
     imageURL: {
       type: DataTypes.STRING,
-      defaultValue: null,
     },
     authorId: {
       type: DataTypes.UUID,

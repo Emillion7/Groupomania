@@ -5,63 +5,94 @@ const {
   withPatchHandler,
   withDeleteHandler,
 } = require("../../utils/with-request-handler-factory");
+const {
+  getRelativeServerPath,
+} = require("../../utils/get-relative-server-path");
 
 class PostController {
   static postService = PostService;
-  /**
-   * getPosts
-   * @param {import("express").Request} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static getPosts = withGetHandler(async () => {
-    return await PostController.postService.getPosts();
-  });
 
-  /**
-   * getPost
-   * @param {import("express").Request<{ postId: string }>} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static getPost = withGetHandler(async (req) => {
-    const postId = Number.parseInt(req.params.postId, 10);
-    return await PostController.postService.getPost(postId);
-  });
+  static getPosts = withGetHandler(
+    /**
+     * getPosts
+     * @param {import("express").Request} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async () => {
+      return await PostController.postService.getPosts();
+    }
+  );
 
-  /**
-   * createPost
-   * @param {import("express").Request<unknown, { title: string; content?: string }>} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static createPost = withPostHandler(async (req) => {
-    const payload = req.body;
-    return await PostController.postService.createPost(payload);
-  });
+  static getPost = withGetHandler(
+    /**
+     * getPost
+     * @param {import("express").Request<{ postId: string }>} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async (req) => {
+      const postId = req.params.postId;
+      return await PostController.postService.getPost(postId);
+    }
+  );
 
-  /**
-   * editPost
-   * @param {import("express").Request<{ postId: string }, { title?: string; content?: string; published?: boolean }>} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static editPost = withPatchHandler(async (req) => {
-    const postId = Number.parseInt(req.params.postId, 10);
-    const payload = req.body;
-    return await PostController.postService.editPost(postId, payload);
-  });
+  static createPost = withPostHandler(
+    /**
+     * createPost
+     * @param {import("express").Request<unknown, { title: string; content?: string }>} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async (req) => {
+      const payload = req.body;
+      return await PostController.postService.createPost(payload);
+    }
+  );
 
-  /**
-   * deletePost
-   * @param {import("express").Request<{ postId: string }>} req
-   * @param {import("express").Response} res
-   * @param {import("express").NextFunction} next
-   */
-  static deletePost = withDeleteHandler(async (req) => {
-    const postId = Number.parseInt(req.params.postId, 10);
-    return await PostController.postService.deletePost(postId);
-  });
+  static editPost = withPatchHandler(
+    /**
+     * editPost
+     * @param {import("express").Request<{ postId: string }, { title?: string; content?: string; published?: boolean }>} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async (req) => {
+      const { postId } = req.params;
+      const payload = req.body;
+      return await PostController.postService.editPost(postId, payload);
+    }
+  );
+
+  static deletePost = withDeleteHandler(
+    /**
+     * deletePost
+     * @param {import("express").Request<{ postId: string }>} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async (req) => {
+      const { postId } = req.params;
+      await PostController.postService.deletePost(postId);
+    }
+  );
+
+  static uploadImage = withPostHandler(
+    /**
+     * uploadImage
+     * @param {import("express").Request<{ postId: string }>} req
+     * @param {import("express").Response} res
+     * @param {import("express").NextFunction} next
+     */
+    async (req) => {
+      const { postId } = req.params;
+      const image = req.file;
+      const postImageRelativeServerPath = getRelativeServerPath(req, image);
+      return await PostController.postService.editPost(postId, {
+        imageURL: postImageRelativeServerPath,
+      });
+    }
+  );
 }
 
 module.exports = { PostController };
