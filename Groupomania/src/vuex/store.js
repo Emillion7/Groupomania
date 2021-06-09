@@ -12,13 +12,15 @@ export default new Vuex.Store({
       SET_USER_DATA(state, userData){
         state.user = userData
         localStorage.setItem('user', JSON.stringify(userData))
-        axios.defaults.headers.common['Authorization'] = `Bearer ${
-          userData.token
-        }`
+        localStorage.setItem('token', userData.data.token)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
       },
       CLEAR_USER_DATA () {
         localStorage.removeItem('user')
         location.reload()
+      },
+      SET_POST_SUCCESS(state, data){
+        console.log(state, data)
       }
     },
     actions: {
@@ -40,6 +42,20 @@ export default new Vuex.Store({
         },
         logout ({ commit }) {
           commit('CLEAR_USER_DATA')
+        },
+        handleUploadPost({ commit }, data) {
+         const token = localStorage.getItem('token');
+         console.log("Bearer "+ token)
+          const config = {
+            headers: { Authorization: `Bearer `+ token}
+        };       
+        console.log(config)
+          return axios
+            .post('http://localhost:5000/api/v1/posts', data, config)
+            .then(({ data }) => {
+              console.log('post data is', data)
+              commit('SET_POST_SUCCESS', data)
+          })
         }
       },
       getters: {
