@@ -5,8 +5,8 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    user: null
+    state: {
+      user: null
   },
     mutations: {
       SET_USER_DATA(state, userData){
@@ -56,7 +56,21 @@ export default new Vuex.Store({
               console.log('post data is', data)
               commit('SET_POST_SUCCESS', data)
           })
-        }
+        },
+        handleGetPosts({ commit }, data) {
+         const token = localStorage.getItem('token');
+         console.log("Bearer "+ token)
+          const config = {
+            headers: { Authorization: `Bearer `+ token}
+        };       
+        console.log(config)
+          return axios
+            .get('http://localhost:5000/api/v1/posts', data, config)
+            .then(({ data }) => {
+              console.log('post data is', data)
+              commit('SET_POST_SUCCESS', data)
+          })
+        },
       },
       getters: {
         loggedIn (state) {

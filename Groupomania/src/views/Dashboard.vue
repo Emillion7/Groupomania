@@ -7,10 +7,6 @@
      <v-card width="250" class="pa-1">
        <v-layout wrap column>
          <v-flex xs12 sm4>
-           <div class="body-1 grey--text">Name:</div>
-           <div>{{ name }}</div>
-         </v-flex>
-         <v-flex xs12 sm4>
            <div class="body-1 grey--text">Username:</div>
            <div>{{ username }}</div>
          </v-flex>
@@ -30,7 +26,6 @@ export default {
     name: 'Dashboard',
     data() {
         return {
-            name: '',
             username: '',
             email: ''
         }

@@ -66,8 +66,8 @@ export default {
       post: {
         title:"",
         description:"",
-        image:"",
-        authorId:"6079c4c8-ac71-42dc-84e4-9ec545e349ad"
+        imageURL:"",
+        authorId:"af1339ae-f5e0-426f-a59c-36e121d367e5"
       },
       submitted: false,
     }
@@ -78,6 +78,7 @@ export default {
       .dispatch('handleUploadPost', {
         title: this.post.title,
         description: this.post.description,
+        imageURL: this.post.imageURL,
         authorId: this.post.authorId
       })
     }

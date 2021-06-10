@@ -27,15 +27,21 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/team',
-    name: 'Team',
-    component: () => import('../views/Team.vue'),
+    path: '/addpost',
+    name: 'AddPost',
+    component: () => import('../components/AddPost.vue'),
     meta: { requiresAuth: true }
   },
   {
     path: '/feed',
     name: 'Feed',
     component: () => import('../views/Feed.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/posts',
+    name: 'Posts',
+    component: () => import('../components/ShowPosts.vue'),
     meta: { requiresAuth: true }
   }
 ]

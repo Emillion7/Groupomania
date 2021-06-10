@@ -13,7 +13,7 @@
           </v-btn>
         </div>
       
-        <v-btn icon to="/">
+        <v-btn icon v-if="!loggedIn" to="/">
           <v-icon>mdi-home</v-icon>
         </v-btn> 
         
@@ -76,9 +76,10 @@ export default {
       return {
         drawer: false,
         links: [
+          { icon: 'mdi-home', text: 'Home', route: '/' },
           { icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/Dashboard' },
           { icon: 'mdi-post', text: 'Feed', route: '/Feed' },
-          { icon: 'mdi-account-details', text: 'Team', route: '/Team' }
+          { icon: 'mdi-pencil-plus', text: 'Add Post', route: '/AddPost' }
         ]
       }
     },
