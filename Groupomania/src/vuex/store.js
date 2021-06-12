@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-      user: null
+      user: null,
+      posts: []
   },
     mutations: {
       SET_USER_DATA(state, userData){
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         location.reload()
       },
       SET_POST_SUCCESS(state, data){
+        state.posts = data;
         console.log(state, data)
       }
     },
@@ -57,7 +59,7 @@ export default new Vuex.Store({
               commit('SET_POST_SUCCESS', data)
           })
         },
-        handleGetPosts({ commit }, data) {
+        handleGetPosts({ commit }) {
          const token = localStorage.getItem('token');
          console.log("Bearer "+ token)
           const config = {
@@ -65,17 +67,19 @@ export default new Vuex.Store({
         };       
         console.log(config)
           return axios
-            .get('http://localhost:5000/api/v1/posts', data, config)
+            .get('http://localhost:5000/api/v1/posts', config)
             .then(({ data }) => {
-              console.log('post data is', data)
-              commit('SET_POST_SUCCESS', data)
+              const posts = data.data
+              commit('SET_POST_SUCCESS', posts)
           })
         },
       },
       getters: {
         loggedIn (state) {
           return !!state.user
-        }
+        },
+        posts (state) {
+          return state.posts
+        } 
       }
-    })
-    
+    }) 
