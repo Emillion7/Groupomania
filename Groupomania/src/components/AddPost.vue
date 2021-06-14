@@ -1,41 +1,47 @@
 <template>
   <v-main>
 
+    <h1 class="subheading grey--text pl-3">Add Post:</h1>
+
     <v-container v-if="!submitted">  
-
-     <v-card class="pa-1" flat>
-       <v-layout wrap>
-         <v-flex sm8 md6 lg4>
-           <div class="body-1 grey--text">Add Post:</div>
-           <v-textarea
-            label="Title"
-            v-model="post.title"
-            background-color="purple lighten-5"
-            auto-grow
-            outlined
-            rows="1"
-            row-height="15"
-          >project</v-textarea>
-           <v-textarea
-            label="Description"
-            v-model="post.description"
-            background-color="purple lighten-5"
-            auto-grow
-            outlined
-            rows="4"
-            row-height="35"
-          ></v-textarea>
-          <v-file-input
-            label="Add image"
-            background-color="purple lighten-5"
-            outlined
-            prepend-icon="mdi-camera"
-            ></v-file-input>
-          <v-btn type="submit" color="primary" v-on:click.prevent="createPost">Create Post</v-btn>
-         </v-flex>
-       </v-layout>
-     </v-card>
-
+      <v-form @submit.prevent="onSubmit" enctype="multipart/form-data">
+        <v-card class="pa-1" flat>
+          <v-layout wrap>
+            <v-flex sm8 md6 lg4>
+              <v-textarea
+                label="Title"
+                v-model="post.title"
+                background-color="purple lighten-5"
+                auto-grow
+                outlined
+                rows="1"
+                row-height="15"
+              >project</v-textarea>
+              <v-textarea
+                label="Description"
+                v-model="post.description"
+                background-color="purple lighten-5"
+                auto-grow
+                outlined
+                rows="4"
+                row-height="35"
+              ></v-textarea>
+              <v-file-input
+                label="Add image"
+                background-color="purple lighten-5"
+                outlined
+                prepend-icon="mdi-camera"
+                @change="onSelect()"
+                type="file"
+                id="file"
+                ref="file"
+                accept=".jpg, .png, .gif"
+                ></v-file-input>
+              <v-btn type="submit" color="primary" v-on:click.prevent="createPost">Create Post</v-btn>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-form>
      <div v-if="submitted">
        <h3>Thanks for adding your post!</h3>
      </div>
@@ -58,6 +64,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'AddPost',
 
@@ -66,6 +74,7 @@ export default {
       post: {
         title:"",
         description:"",
+        file:"",
         imageURL:"",
         authorId:"af1339ae-f5e0-426f-a59c-36e121d367e5"
       },
@@ -81,9 +90,27 @@ export default {
         imageURL: this.post.imageURL,
         authorId: this.post.authorId
       })
+    },
+    onSelect(){
+      const file = this.$refs.file.files[0];
+      this.file = file;
+    },
+    async onSubmit(){
+      this.authorId = localStorage.username;
+      const formData = new FormData();
+      formData.append('file', this.file);
+          
+        try {
+          await axios.post('http://localhost:5000/api/v1/posts/:postId/image', formData).then((res) => {
+            this.imageURL = res.data;
+            this.postFile(this.imageURL)
+            })
+          } catch (err) {
+              console.error(err.message)
+          }
+        },
+      }
     }
-  }
-}
 
 </script>
 
