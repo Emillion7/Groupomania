@@ -11,7 +11,7 @@
            <article class="body-1 grey--text">{{ post.description }}</article>
          </v-flex>
          <v-flex xs12 sm4>
-           <img v-if="post.imgname != '' " :src= "'' + post.imageURL">
+           <img v-if="post.imgname != '' " :src= "'http://localhost:5000' + post.imageURL">
          </v-flex>
        </v-layout>
      </v-card>
