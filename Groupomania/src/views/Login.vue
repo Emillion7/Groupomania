@@ -17,7 +17,9 @@
                     <v-spacer></v-spacer>
                     <v-btn type="submit" color="success">Login</v-btn>
                   </v-card-actions>
-                  <p>{{ error }}</p>
+                  <p v-if="error" class="red--text" role="alert">
+                    {{ error }}
+                  </p>
                   <p> Don't have an account? 
                   <router-link to="/signup"> Register! </router-link>
                   </p>
@@ -49,8 +51,8 @@ export default {
       .then ( () => {
         this.$router.push({ name: 'Dashboard'})
       })
-      .catch(err => {
-        this.error = err.response.data.error
+      .catch( () => {
+        this.error = 'Invalid username or password!'
       })
     }
   }

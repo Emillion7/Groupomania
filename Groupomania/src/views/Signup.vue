@@ -16,6 +16,9 @@
                     <v-spacer></v-spacer>
                     <v-btn type="submit" color="success">Sign Up</v-btn>
                   </v-card-actions>
+                  <p v-if="error" class="red--text" role="alert">
+                    {{ error }}
+                  </p>
                   <p> Already have an account? 
                   <router-link to="/login"> Login! </router-link>
                   </p>
@@ -34,7 +37,8 @@
       return {
         username:'',
         email:'',
-        password:''
+        password:'',
+        error: null
       }
     },
     methods: {
@@ -47,6 +51,9 @@
           })
           .then( () => {
             this.$router.push({ name: 'Login', query: { redirect: '/path' }})
+          })
+          .catch( () => {
+            this.error = 'Something went wrong! Try again!'
           })
         }
       }
