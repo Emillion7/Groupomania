@@ -1,7 +1,7 @@
 <template>
  <div class="home">
-   <h1>Welcome to Groupomania!</h1>
    <div v-if="!loggedIn">
+   <h1 class="secondary--text">Welcome to Groupomania!</h1>
      <p>
        To use our app you'll need to
        <router-link to="/login">
@@ -11,6 +11,9 @@
          Signup
        </router-link>
      </p>
+   </div>
+   <div v-else>
+     <h1 class="primary--text">Welcome to Groupomania!</h1>
    </div>
  </div>
 </template>

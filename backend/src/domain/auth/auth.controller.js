@@ -23,8 +23,10 @@ class AuthController {
       if (!token) {
         throw new Error("username or password are incorrect");
       }
-
-      return token;
+      const data = await AuthService.userService.getUserByUsername(
+        username
+      )
+      return { token: token.token, userId:data.id, username: data.username, email: data.email };
     },
     () => 401
   );
