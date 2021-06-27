@@ -8,15 +8,16 @@
        <v-layout wrap column>
          <v-flex xs12 sm4 class="ma-3">
            <div class="body-1 grey--text">Username:</div>
-           <div class="indigo--text">{{ $store.state.user.username }}</div>
+           <div class="secondary--text">{{ $store.state.user.username }}</div>
          </v-flex>
          <v-flex xs12 sm4 class="ma-3">
            <div class="body-1 grey--text">Email:</div>
-           <div class="indigo--text">{{ $store.state.user.email }}</div>
+           <div class="secondary--text">{{ $store.state.user.email }}</div>
          </v-flex>
-         <v-btn block dark class="mt-7" color="primary" @click="deleteAccount()">
+         <v-btn block dark class="submit mt-7" color="primary" @click="deleteAccount()">
           Delete Account?
           </v-btn>
+          
        </v-layout>
      </v-card>
 
@@ -25,33 +26,34 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'Dashboard',
     data() {
         return {
-            
+           user: {} 
         }
     },
     methods: {
-      async deleteAccount () {
+      deleteAccount () {
             this.confirmation = confirm('Are you sure?')
             if (this.confirmation === true) {
             try {
-                const response = await fetch(
-                    "http://localhost:5000/api/v1/users" ,
+                  axios.delete(
+                    "http://localhost:5000/api/v1/users/" + JSON.parse(localStorage.getItem('user')).data.userId,
                     {
-                        method: "DELETE",
-                    headers: {
-                     token: localStorage.token
+                    Headers: {
+                     Authorization: 'Bearer '+localStorage.getItem("token") 
                     },
-                    }
-                );
-                this.msg = await response.json();
-                alert(this.msg)
-                localStorage.removeItem('token')
-                localStorage.removeItem('userData')
-                this.$router.push('/')
-                this.$router.go()
+                  }
+                ).then (() => {
+                    alert('User deleted!')
+                    localStorage.removeItem('user')
+                    localStorage.removeItem('token')
+                    this.$router.push('/')
+                    this.$router.go()
+                })
             } catch (err) {
                 console.error(err.message)
             }

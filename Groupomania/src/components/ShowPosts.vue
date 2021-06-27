@@ -17,9 +17,9 @@
            <img width="500" class="m-1" v-if="post.imgname != '' " :src= "'http://localhost:5000' + post.imageURL">
          </v-flex>
 
-         <h4 class="grey--text"><i>Added by:</i> {{ post.username }}</h4>
+         <h4 class="grey--text"><i>Added by:</i> {{ post.authorId }}</h4>
           
-          <v-col class="text-right">
+          <v-col class="text-right" v-if="post.authorId === loggedInUser">
             <v-btn
               class="mx-2"
               fab
@@ -46,8 +46,7 @@ export default {
 
   data() {
     return {
-      post: {},
-      username: this.username
+      post: {}
     }
   },
     methods: {
@@ -69,8 +68,13 @@ export default {
         })
       }
     },
-  mounted() {
-    this.getPosts()
+    computed: {
+     loggedInUser() {
+             return JSON.parse(localStorage.getItem('user')).data.userId
+        },
+    },
+    mounted() {
+      this.getPosts()
+    }
   }
-}
 </script>

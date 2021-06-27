@@ -29,7 +29,7 @@ class AuthService {
           { algorithm: "HS256" }
         );
 
-        return { token };
+        return { token, user };
       } else {
         throw new Error("User Unauthorized");
       }
