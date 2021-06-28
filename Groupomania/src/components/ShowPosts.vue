@@ -17,7 +17,7 @@
            <img width="500" class="m-1" v-if="post.imgname != '' " :src= "'http://localhost:5000' + post.imageURL">
          </v-flex>
 
-         <h4 class="grey--text"><i>Added by:</i> {{ post.authorId }}</h4>
+         <h4 class="secondary--text"><i>Added by:</i> {{ post.author.username }}</h4>
           
           <v-col class="text-right" v-if="post.authorId === loggedInUser">
             <v-btn
