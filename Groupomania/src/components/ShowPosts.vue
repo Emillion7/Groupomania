@@ -2,7 +2,7 @@
   <v-main>
     <router-link class="pa-4" to="/addpost">Add a New Post</router-link>
     <div class="single-post" v-for="post in $store.getters.posts" :key="post.id">
-      <v-card width="510" class="pa-1 ma-4">
+      <v-card width="460" class="pa-1 ma-4">
        <v-layout wrap column>
          
          <v-flex xs12 sm4>
@@ -14,10 +14,10 @@
          </v-flex>
          
          <v-flex xs12 sm4>
-           <img width="500" class="m-1" v-if="post.imgname != '' " :src= "'http://localhost:5000' + post.imageURL">
+           <img width="450" class="m-1" v-if="post.imgname != '' " :src= "'http://localhost:5000' + post.imageURL">
          </v-flex>
 
-         <h4 class="secondary--text"><i>Added by:</i> {{ post.author.username }}</h4>
+         <h4 class="secondary--text ml-1"><i>Added by:</i> {{ post.author.username }}</h4>
           
           <v-col class="text-right" v-if="post.authorId === loggedInUser">
             <v-btn
